@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DotnetCoreMVCapp.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Products</h1>
+
+<p>
+    <a asp-action="AddOrEdit">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                 <form asp-action="Delete" asp-route-id="@item.ProductID">
+                  <div class="btn-group btn-group-sm">
+                 
+                  <a asp-action="AddOrEdit" asp-route-id="@item.ProductID">Edit</a> &nbsp;| &nbsp;
+                  <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> &nbsp; | &nbsp;
+
+                  <button type = "submit" class = "btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">
+                      <i class="far fa-trash-alt"></i>
+                  </button>
+                  </div>                
+              
+
+              </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
