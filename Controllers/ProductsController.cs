@@ -59,7 +59,7 @@ namespace DotnetCoreMVCapp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("ProductID,ProductName,Price")] Product product)
+        public async Task<IActionResult> AddOrEdit([Bind("ProductID,ProductName,Price,ProductGuid")] Product product)
         {
             if (ModelState.IsValid)
             {

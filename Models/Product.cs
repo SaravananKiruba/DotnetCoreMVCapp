@@ -8,7 +8,8 @@ namespace DotnetCoreMVCapp.Models
         [Key]
         public int ProductID { get; set; }
 
-        
+        public Guid ProductGuid { get; set; } = Guid.NewGuid();
+
         [Column(TypeName ="nvarchar(100)")]
 
         [Required]
