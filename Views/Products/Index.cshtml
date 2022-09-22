@@ -35,7 +35,7 @@
                   <div class="btn-group btn-group-sm">
                  
                   <a asp-action="AddOrEdit" asp-route-id="@item.ProductID">Edit</a> &nbsp;| &nbsp;
-                  <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> &nbsp; | &nbsp;
+                  <a asp-action="Details" asp-route-id="@item.ProductGuid">Details</a> &nbsp; | &nbsp;
 
                   <button type = "submit" class = "btn btn-danger" onclick="return confirm('Are you sure to delete this record?')">
                       <i class="far fa-trash-alt"></i>

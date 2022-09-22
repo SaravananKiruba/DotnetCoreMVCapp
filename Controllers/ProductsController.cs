@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DotnetCoreMVCapp.Models;
+using QRCoder;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace DotnetCoreMVCapp.Controllers
 {
@@ -27,7 +30,7 @@ namespace DotnetCoreMVCapp.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(String? id)
         {
             if (id == null || _context.Products == null)
             {
@@ -35,12 +38,22 @@ namespace DotnetCoreMVCapp.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+                .FirstOrDefaultAsync(m => m.ProductGuid.ToString().ToUpper() == id.ToUpper());
             if (product == null)
             {
                 return NotFound();
             }
+            using (MemoryStream ms = new MemoryStream())
+            {
+                QRCodeGenerator oQrCodeGenerator = new QRCodeGenerator();
+                QRCodeData oQrCodeData = oQrCodeGenerator.CreateQrCode(id, QRCodeGenerator.ECCLevel.Q);
+                QRCode oQrCode = new QRCode(oQrCodeData);
 
+                using (Bitmap obitmap = oQrCode.GetGraphic(20))
+                {
+                    obitmap.Save(ms, ImageFormat.Png);
+                    ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());                }
+            }
             return View(product);
         }
 

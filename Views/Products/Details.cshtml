@@ -22,6 +22,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
+        <dt class="col-sm-2">
+            <h2>QrCode</h2>
+
+        </dt>
+        <dd class="col-sm-10">
+            @if (@ViewBag.QRCode != null)
+            {
+                <img src="@ViewBag.QRCode" style="width:200px;height:200px"/>
+            }
+        </dd>
     </dl>
 </div>
 <div>
